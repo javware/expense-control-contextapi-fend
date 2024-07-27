@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos básicos del scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  /* Ancho del scrollbar */
+  scrollbar-color: #686868 #d1d5db;
+  /* Color del "pulgar" y de la pista del scrollbar */
+}
+
+/* custom-scrollbar.css */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #686868;
+  /* Azul de Tailwind (blue-900) */
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #535353;
+  /* Azul más oscuro de Tailwind (blue-800) */
+}
+
+/*** SWIPE LIST OVERRIDES **/
+.swipeable-list-item__leading-actions,
+.swipeable-list-item__trailing-actions {
+  @apply text-white text-lg uppercase font-bold;
+}
+
+.swipeable-list-item__leading-actions {
+  @apply bg-blue-600;
+}
+
+.swipeable-list-item__trailing-actions {
+  @apply bg-pink-600;
+}
+
+.swipeable-list .swipe-action {
+  @apply flex justify-center items-center
+}
