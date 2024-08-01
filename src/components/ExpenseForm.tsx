@@ -87,8 +87,8 @@ export default function ExpenseForm() {
         <form onSubmit={handleSubmit}>
             <div className="flex justify-between items-start pb-4">
                 <div>
-                    <div className="text-2xl font-medium uppercase">{state.editingId ? 'Actualizar Gasto' : 'Registrar Nuevo Gasto'}</div>
-                    <span className="text-xs">{state.editingId ? 'Modifique la información del gasto seleccionado a continuación.' : 'Complete el formulario a continuación para registrar un nuevo gasto.'} </span>
+                    <div className="text-2xl font-medium uppercase">{state.editingId ? 'Actualizar Gasto' : 'Registrar Gasto'}</div>
+                    <span className="text-xs">{state.editingId ? 'Modifique la información del gasto seleccionado.' : 'Complete el formulario a continuación.'} </span>
                 </div>
                 <div
                     className="flex justify-center items-center cursor-pointer bg-white font-semibold w-8 h-8 rounded-full shadow-3xl"

@@ -3,7 +3,7 @@ import { useBudget } from "../hooks/useBudget";
 import AmountDisplay from "./AmountDisplay";
 import "react-circular-progressbar/dist/styles.css"
 
-export default function BudgetTracker() {
+export default function BudgetTracker() { 
 
     const { state, totalExpenses, totalSaving, remainingBudget } = useBudget()
     const percentageExpenses = +((totalExpenses / (+state.budget -totalSaving)) * 100).toFixed(2)
