@@ -11,12 +11,12 @@ export default function FilterByCategory() {
         dispatch({ type: 'add-filter-category', payload: { id: e.target.value } })
     }
     return (
-        <div className="bg-white shadow-lg rounded-lg p-5">
+        <div className="bg-white shadow-lg rounded-lg py-4 px-5">
             <form>
                 <div className="flex flex-row gap-5 justify-normal items-center">
                     <label htmlFor="category" className="w-1/5">Filtrar Gastos</label>
                     <div className="relative w-4/5">
-                        <select id="category" className="appearance-none bg-slate-100 w-full border border-gray-200 focus:border-blue-500 outline-none py-3 px-5 rounded-3xl" onChange={handleChange}>
+                        <select id="category" className="appearance-none bg-slate-100 w-full border border-gray-200 focus:border-blue-500 outline-none py-2 px-4 rounded-xl" onChange={handleChange}>
                             <option value="">-- Todo</option>
                             {categories.map(category => (
                                 <option key={category.id} value={category.id}> {category.name}</option>

@@ -29,7 +29,7 @@ export default function BudgetForm() {
                     </label>
                     <input type="number"
                         id="budgetID"
-                        className="w-full bg-white border border-gray-200 focus:border-blue-500 outline-none py-2 px-5 rounded-3xl"
+                        className="w-full bg-white border border-gray-200 focus:border-blue-500 outline-none py-2 px-5 rounded-xl"
                         placeholder="Define tu presupuesto"
                         name="budget"
                         value={budget}

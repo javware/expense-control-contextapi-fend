@@ -11,10 +11,10 @@ export default function ExpenseList() {
     return (
         <div className="mt-5 bg-white shadow-lg rounded-lg py-5 p-3 md:h-full overflow-y-auto scrollbar-thin">
             <div>
-                {isEmpty ? <p className="text-gray-600 text-lg md:text-2xl font-bold">No Hay Gastos</p> : (
+                {isEmpty ? <p className="text-gray-600 text-lg text-center md:text-2xl font-bold">No hay gastos</p> : (
                     <>
-                        <p className="text-gray-600 text-lg md:text-2xl font-bold ">
-                            Listado de Gastos:
+                        <p className="text-gray-600 text-center text-lg md:text-2xl font-bold ">
+                            Listado de Gastos
                         </p>
                         {filterdExpenses.map(expense => (
                             <ExpenseDetail key={expense.id} expense={expense} />

@@ -31,7 +31,6 @@ export default function ExpenseForm() {
     }, [state.editingId])
 
 
-
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target
         const isAmountField = ['amount'].includes(name)
@@ -57,11 +56,12 @@ export default function ExpenseForm() {
             setError('Todos los campos son olbigatorios.')
             return
         }
+
         //Validar que no pase del presupuesto
         if ((expense.amount - previusAmount) > remainingBudget) {
-            return ('Ese gasto se sale del presupuesto')
+            setError('Ese gasto se sale del presupuesto')
+            return
         }
-
 
         //Agregar o actualizar el Gasto
         if (state.editingId) {
@@ -84,52 +84,66 @@ export default function ExpenseForm() {
     }
 
     return (
-        <form className="space-y-5" onSubmit={handleSubmit}>
-            <legend className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2">
-                {state.editingId ? 'Guardar Cambios' : 'Nuevo Gasto'}
-            </legend>
+        <form onSubmit={handleSubmit}>
+            <div className="flex justify-between items-start pb-4">
+                <div>
+                    <div className="text-2xl font-medium uppercase">{state.editingId ? 'Actualizar Gasto' : 'Registrar Nuevo Gasto'}</div>
+                    <span className="text-xs">{state.editingId ? 'Modifique la información del gasto seleccionado a continuación.' : 'Complete el formulario a continuación para registrar un nuevo gasto.'} </span>
+                </div>
+                <div
+                    className="flex justify-center items-center cursor-pointer bg-white font-semibold w-8 h-8 rounded-full shadow-3xl"
+                    onClick={() => dispatch({ type: 'close-modal' })}
+                >
+                    x
+                </div>
+            </div>
 
             {error && <ErrorMessage>{error}</ErrorMessage>}
 
-            <div className="flex flex-col gap-2">
-                <label htmlFor="expenseName" className="text-xl">Nombre Gasto</label>
-                <input type="text" id="expenseName" placeholder="Añade el Nombre del gasto"
-                    className="bg-slate-100 p-2"
-                    name="expenseName"
-                    value={expense.expenseName}
-                    onChange={handleChange}
-                />
+            <div className="space-y-4 px-4">
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="expenseName" className="text-lg">Nombre Gasto</label>
+                    <input type="text" id="expenseName" placeholder="Añade el nombre del gasto"
+                        className="bg-slate-100 py-2 px-4 border border-slate-100  text-sm rounded-lg focus:border-blue-500 outline-none"
+                        name="expenseName"
+                        value={expense.expenseName}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="amount" className="text-lg">Cantidad:</label>
+                    <input type="number" id="amount" placeholder="Añade la cantidad del gasto: ej. 300"
+                        className="bg-slate-100 py-2 px-4 border border-slate-100  text-sm rounded-lg focus:border-blue-500 outline-none"
+                        name="amount"
+                        value={expense.amount.toString()}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="category" className="text-lg">Categoría:</label>
+                    <select id="category"
+                        className="bg-slate-100 py-2 px-4 border border-slate-100  text-sm rounded-lg focus:border-blue-500 outline-none"
+                        name="category"
+                        value={expense.category}
+                        onChange={handleChange}
+                    >
+                        <option value="">-- Selecione --</option>
+                        {categories.map(category => (
+                            <option key={category.id} value={category.id}>{category.name}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="amount" className="text-lg">Fecha Gasto:</label>
+                    <DatePicker className={"bg-slate-100 py-2 px-4  border border-slate-100 text-sm rounded-lg focus:border-blue-500 outline-none"} value={expense.date} onChange={handleChangeDate} />
+                </div>
+                <button
+                    type="submit"
+                    className="bg-blue-600 cursor-pointer w-full p-2 py-3 text-white uppercase  font-bold rounded-3xl shadow-xl">
+                    {state.editingId ? 'Guardar Cambios' : 'Registrar Gastos'}
+                </button>
             </div>
-            <div className="flex flex-col gap-2">
-                <label htmlFor="amount" className="text-xl">Cantidad:</label>
-                <input type="text" id="amount" placeholder="Añade la cantidad del gasto: ej. 300" className="bg-slate-100 p-2"
-                    name="amount"
-                    value={expense.amount}
-                    onChange={handleChange}
-                />
-            </div>
-            <div className="flex flex-col gap-2">
-                <label htmlFor="category" className="text-xl">Cantidad:</label>
-                <select id="category" className="bg-slate-100 p-2"
-                    name="category"
-                    value={expense.category}
-                    onChange={handleChange}
-                >
-                    <option value="">-- Selecione --</option>
-                    {categories.map(category => (
-                        <option key={category.id} value={category.id}>{category.name}</option>
-                    ))}
-                </select>
-            </div>
-            <div className="flex flex-col gap-2">
-                <label htmlFor="amount" className="text-xl">Fecha Gasto:</label>
-                <DatePicker classNamebg-slate-100 p-2 border-0 value={expense.date} onChange={handleChangeDate} />
-            </div>
-            <button
-                type="submit"
-                className="bg-blue-600 cursor-pointer w-full p-2 text-white uppercase font-bold rounded-lg">
-                {state.editingId ? 'Guardar Cambios' : 'Registrar Gastos'}
-            </button>
+
         </form>
     )
 }

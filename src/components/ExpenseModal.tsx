@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { PlusCircleIcon } from '@heroicons/react/24/solid'
+import { PlusIcon } from '@heroicons/react/24/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import { useBudget } from '../hooks/useBudget'
 import ExpenseForm from './ExpenseForm'
@@ -9,9 +9,9 @@ export default function ExpenseModal() {
     const { state, dispatch } = useBudget()
     return (
         <>
-            <div className="fixed right-5 bottom-5 flex items-center justify-center">
+            <div className="fixed right-5 bottom-5 flex items-center justify-center ">
                 <button type="button" onClick={() => dispatch({ type: 'show-modal' })}>
-                    <PlusCircleIcon className='w-16 h-16 text-blue-600 rounded-full' />
+                    <PlusIcon className='w-14 h-14 p-3 bg-blue-600 stroke-white text-white  rounded-full ' />
                 </button >
             </div >
 

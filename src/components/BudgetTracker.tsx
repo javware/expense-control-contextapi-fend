@@ -5,39 +5,46 @@ import "react-circular-progressbar/dist/styles.css"
 
 export default function BudgetTracker() {
 
-    const { state, dispatch, totalExpenses, remainingBudget } = useBudget()
-    const percentage = +((totalExpenses / +state.budget) * 100).toFixed(2)
-
+    const { state, totalExpenses, totalSaving, remainingBudget } = useBudget()
+    const percentageExpenses = +((totalExpenses / (+state.budget -totalSaving)) * 100).toFixed(2)
+    const percentageSaving = +((totalSaving / +state.budget) * 100).toFixed(2)
+    
     return (
-        <div className=" bg-white shadow-lg  w-full lg:w-1/2 rounded-2xl p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="flex justify-center">
-                    <CircularProgressbar value={percentage}
+        <div className="bg-white flex-col gap-5 shadow-lg w-full lg:w-1/2 rounded-xl p-5">
+            <div>
+                <div className="pb-4 text-center">
+                    <h4 className="text-xl font-semibold">Análisis de Finanzas</h4>
+                    <span className="text-xs">Gráficos de gasto y ahorro para evaluar tu situación financiera de un vistazo.</span>
+                </div>
+                <div className="flex gap-5 justify-center">
+                    <CircularProgressbar value={percentageSaving}
                         styles={buildStyles({
-                            pathColor: percentage === 100 ? '#DC2626' : '#3b82f6',
+                            pathColor:  '#11D18F',
                             trailColor: '#F5F5F5',
                             textSize: 8,
-                            textColor: percentage === 100 ? '#DC2626' : '#3b82f6'
+                            textColor: '#11D18F'
                         })}
-                        text={`${percentage}% Gastado`}
+                        text={`${percentageSaving}% Ahorrado`}
+                    />
+                    <CircularProgressbar value={percentageExpenses}
+                        styles={buildStyles({
+                            pathColor: percentageExpenses === 100 ? '#DC2626' : '#3b82f6',
+                            trailColor: '#F5F5F5',
+                            textSize: 8,
+                            textColor: percentageExpenses === 100 ? '#DC2626' : '#3b82f6'
+                        })}
+                        text={`${percentageExpenses}% Gastado`}
                     />
                 </div>
-                <div className="flex flex-col justify-center items-center gap-8">
-                    <button
-                        type="button"
-                        className="bg-pink-600 w-full p-2 text-white uppercase font-bold rounded-3xl"
-                        onClick={() => dispatch({ type: 'reset-app' })}
-                    >
-                        Resetear App
-                    </button>
-                    <div className="flex flex-col gap-3">
-                        <AmountDisplay label="Presupuesto" amount={+state.budget} />
-                        <AmountDisplay label="Disponible" amount={remainingBudget} />
-                        <AmountDisplay label="Gastado" amount={totalExpenses} />
-                    </div>
-
-                </div>
             </div>
+
+            <div className="flex flex-wrap pt-4 justify-around text-center gap-5">
+                <AmountDisplay label="Inicial" amount={+state.budget} />
+                <AmountDisplay label="Ahorro" amount={totalSaving} />
+                <AmountDisplay label="Disponible" amount={remainingBudget} />
+                <AmountDisplay label="Gastado" amount={totalExpenses} />
+            </div>
+
         </div>
 
     )
